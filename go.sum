@@ -1,0 +1,4 @@
+github.com/google/uuid v1.3.0 h1:t6JiXgmwXMjEs8VusXIJk2BXHsn+wx8BZdTaoZ5fu7I=
+github.com/google/uuid v1.3.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
+github.com/shop-r1/royalpay v0.0.0-20191202094641-fc7ff5af9c55 h1:FojoOFnBxtAqHgx8XvNChbdTRNqKTtnKZiffKEj7rmk=
+github.com/shop-r1/royalpay v0.0.0-20191202094641-fc7ff5af9c55/go.mod h1:sN+9hgUIjaYcmsk11OcqniOp/7xzCL3iOv2IShBYHbY=
