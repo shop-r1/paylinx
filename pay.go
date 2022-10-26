@@ -10,6 +10,7 @@ package paylinx
 import (
 	"bytes"
 	"encoding/xml"
+	"fmt"
 	"github.com/google/uuid"
 	"github.com/shop-r1/royalpay"
 	"net/http"
@@ -36,13 +37,14 @@ func NewPay(mchID, storeID int, key string) *Pay {
 
 // CreateWechatOrder 创建微信订单
 func (p *Pay) CreateWechatOrder(money int,
-	body, returnURL, notifyURL, spbillCreateIP string,
+	orderID, body, returnURL, notifyURL, spbillCreateIP string,
 	currency royalpay.Currency) (*WechatCreateTransactionResp, error) {
 	req := &WechatCreatTransactionReq{
 		MchID:          p.MchID,
 		StoreID:        p.StoreID,
 		NotifyURL:      notifyURL,
 		NonceStr:       uuid.New().String(),
+		OutTradeNo:     orderID,
 		ReturnURL:      returnURL,
 		Body:           body,
 		SpBillCreateIP: spbillCreateIP,
@@ -52,6 +54,7 @@ func (p *Pay) CreateWechatOrder(money int,
 	}
 	data := req.toMap(true)
 	req.Sign = sign(data, p.Key)
+	fmt.Println(req.Sign)
 	var buf bytes.Buffer
 	err := xml.NewEncoder(&buf).Encode(req)
 	if err != nil {

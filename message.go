@@ -9,6 +9,7 @@ package paylinx
 
 import (
 	"encoding/xml"
+	"github.com/spf13/cast"
 	"reflect"
 )
 
@@ -29,15 +30,15 @@ type WechatCreatTransactionReq struct {
 }
 
 func (e *WechatCreatTransactionReq) toMap(skipEmpty bool) map[string]string {
-	obj1 := reflect.TypeOf(e)
-	obj2 := reflect.ValueOf(e)
+	obj1 := reflect.TypeOf(e).Elem()
+	obj2 := reflect.ValueOf(e).Elem()
 
 	var data = make(map[string]string)
 	for i := 0; i < obj1.NumField(); i++ {
 		if skipEmpty && obj2.Field(i).IsZero() {
 			continue
 		}
-		data[obj1.Field(i).Name] = obj2.Field(i).String()
+		data[obj1.Field(i).Tag.Get("xml")] = cast.ToString(obj2.Field(i).Interface())
 	}
 	return data
 }

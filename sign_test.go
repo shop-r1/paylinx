@@ -23,7 +23,7 @@ func Test_sign(t *testing.T) {
 			"test01",
 			args{
 				paramsKv: map[string]string{
-					"pa":       "aaa",
+					"mch_id":   "aaa",
 					"pb":       "bbb",
 					"pc":       "ccc",
 					"bizMchId": "6765",
