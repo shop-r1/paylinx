@@ -11,6 +11,7 @@ import (
 	"encoding/xml"
 	"github.com/spf13/cast"
 	"reflect"
+	"strings"
 )
 
 type WechatCreatTransactionReq struct {
@@ -38,7 +39,7 @@ func (e *WechatCreatTransactionReq) toMap(skipEmpty bool) map[string]string {
 		if skipEmpty && obj2.Field(i).IsZero() {
 			continue
 		}
-		data[obj1.Field(i).Tag.Get("xml")] = cast.ToString(obj2.Field(i).Interface())
+		data[strings.Split(obj1.Field(i).Tag.Get("xml"), ",")[0]] = cast.ToString(obj2.Field(i).Interface())
 	}
 	return data
 }

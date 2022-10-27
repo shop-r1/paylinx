@@ -10,26 +10,29 @@ package paylinx
 import (
 	"crypto/md5"
 	"encoding/hex"
-	"net/url"
+	"fmt"
+	"sort"
 	"strings"
 )
 
 func sign(params map[string]string, key string) string {
 	s := mapToUrl(params, key)
+	fmt.Println(s)
 	h := md5.New()
 	h.Write([]byte(s))
 	return strings.ToUpper(hex.EncodeToString(h.Sum(nil)))
 }
 
 func mapToUrl(params map[string]string, key string) string {
-	u := url.Values{}
-	for k, v := range params {
-		if v == "" {
-			continue
-		}
-		u.Set(k, v)
+	keys := make([]string, 0, len(params))
+	for k := range params {
+		keys = append(keys, k)
 	}
-	s := u.Encode()
-	s += "&key=" + key
+	sort.Strings(keys)
+	var s string
+	for i := range keys {
+		s += keys[i] + "=" + params[keys[i]] + "&"
+	}
+	s += "key=" + key
 	return s
 }

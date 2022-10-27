@@ -10,6 +10,7 @@ package paylinx
 import (
 	"github.com/google/uuid"
 	"os"
+	"strings"
 	"testing"
 
 	"github.com/sanity-io/litter"
@@ -46,8 +47,8 @@ func TestPay_CreateWechatOrder(t *testing.T) {
 				Key:     os.Getenv("SECRET_KEY"),
 			},
 			args{
-				orderID:        uuid.New().String(),
-				money:          1,
+				orderID:        strings.ReplaceAll(uuid.New().String(), "-", ""),
+				money:          14,
 				body:           "test",
 				returnURL:      "https://www.baidu.com",
 				notifyURL:      "https://www.baidu.com",
